@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Right Seed Academy | Precision Growth</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        surface: "#131315", "surface-dim": "#131315", "surface-bright": "#39393b",
+        "surface-container-lowest": "#0e0e10", "surface-container-low": "#1b1b1d",
+        "surface-container": "#201f21", "surface-container-high": "#2a2a2c",
+        "surface-container-highest": "#353437", "on-surface": "#e5e1e4",
+        "on-surface-variant": "#bbcbb8", "inverse-surface": "#e5e1e4",
+        "inverse-on-surface": "#303032", outline: "#869583",
+        "outline-variant": "#3c4a3c", "surface-tint": "#3ce36a",
+        primary: "#3fe56c", "on-primary": "#003912", "primary-container": "#00c853",
+        "on-primary-container": "#004c1b", "inverse-primary": "#006e2a",
+        secondary: "#bdf4ff", "on-secondary": "#00363d", "secondary-container": "#00e3fd",
+        "on-secondary-container": "#00616d", tertiary: "#9bd89b",
+        "on-tertiary": "#003910", "tertiary-container": "#80bc82",
+        "on-tertiary-container": "#114c1e", error: "#ffb4ab", "on-error": "#690005",
+        "error-container": "#93000a", "on-error-container": "#ffdad6",
+        "primary-fixed": "#69ff87", "primary-fixed-dim": "#3ce36a",
+        "on-primary-fixed": "#002108", "on-primary-fixed-variant": "#00531e",
+        "secondary-fixed": "#9cf0ff", "secondary-fixed-dim": "#00daf3",
+        "on-secondary-fixed": "#001f24", "on-secondary-fixed-variant": "#004f58",
+        "tertiary-fixed": "#b4f2b3", "tertiary-fixed-dim": "#98d599",
+        "on-tertiary-fixed": "#002107", "on-tertiary-fixed-variant": "#185123",
+        background: "#131315", "on-background": "#e5e1e4", "surface-variant": "#353437",
+        "sage-green": "#4E8752"
+      },
+      borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", "2xl": "1rem", "3xl": "1.5rem", full: "9999px" },
+      spacing: { gutter: "24px", "margin-mobile": "16px", unit: "8px", "container-max": "1280px", "margin-desktop": "64px" },
+      fontFamily: { headline: ["Plus Jakarta Sans", "sans-serif"], body: ["Inter", "sans-serif"] },
+      fontSize: {
+        "headline-xl": ["64px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" }],
+        "headline-xl-mobile": ["40px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "800" }],
+        "headline-lg": ["48px", { lineHeight: "1.2", fontWeight: "700" }],
+        "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "700" }],
+        "headline-sm": ["24px", { lineHeight: "1.4", fontWeight: "600" }],
+        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+        "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+        "label-caps": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "700" }]
+      },
+      animation: {
+        "flicker": "flicker 1.5s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "seed-grow": "seed-grow 3s cubic-bezier(0.4, 0, 0.2, 1) forwards"
+      },
+      keyframes: {
+        flicker: { "0%, 100%": { opacity: "1" }, "50%": { opacity: "0.3" } },
+        float: { "0%, 100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
+        "pulse-glow": { "0%, 100%": { boxShadow: "0 0 20px rgba(63, 229, 108, 0.2)" }, "50%": { boxShadow: "0 0 40px rgba(63, 229, 108, 0.4)" } },
+        "seed-grow": { "0%": { height: "0" }, "100%": { height: "75%" } }
+      }
+    },
+  },
+};
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background-color: #131315;
+    color: #e5e1e4;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+  .glass-panel {
+    background: rgba(30, 30, 34, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .glass-panel-solid {
+    background: rgba(30, 30, 34, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .glow-primary { box-shadow: 0 0 20px rgba(63, 229, 108, 0.2); }
+  .glow-secondary { box-shadow: 0 0 20px rgba(0, 227, 253, 0.15); }
+  .glow-sage { box-shadow: 0 0 30px rgba(78, 135, 82, 0.3); }
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #ffffff 0%, #bdf4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .scroll-reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .scroll-reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #3fe56c;
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after { width: 100%; }
+  .primary-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .primary-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(63, 229, 108, 0.35);
+  }
+  .primary-btn:active { transform: scale(0.98); }
+  .secondary-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .secondary-btn:hover {
+    background: rgba(0, 227, 253, 0.1);
+    box-shadow: 0 0 20px rgba(0, 227, 253, 0.15);
+  }
+  .track-card {
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .seed-grow {
+    transition: height 3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .shimmer-border {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, transparent 0%, rgba(63, 229, 108, 0.3) 50%, transparent 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  @media (max-width: 768px) {
+    .text-headline-xl-mobile { font-size: 40px !important; }
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #131315; }
+  ::-webkit-scrollbar-thumb { background: #353437; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #4a4a4c; }
+</style>
+</head>
+<body class="selection:bg-primary selection:text-on-primary">
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500">
+  <div class="backdrop-blur-xl bg-surface/0 border-b border-white/0 transition-all duration-500" id="nav-bg">
+    <div class="flex justify-between items-center px-gutter md:px-margin-desktop py-4 max-w-container-max mx-auto">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-all duration-300">
+          <span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings:'FILL'1">eco</span>
+        </div>
+        <span class="font-headline text-headline-sm font-bold text-primary">The Right Seed</span>
+      </a>
+      <div class="hidden md:flex gap-8 items-center">
+        <a class="nav-link active text-primary font-medium font-body text-body-md" href="index.html">Home</a>
+        <a class="nav-link text-on-surface-variant hover:text-on-surface transition-colors font-body text-body-md" href="tracker.html">Tracker</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="tracker.html" class="primary-btn bg-primary text-on-primary px-5 py-2 rounded-full font-bold text-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL'1">analytics</span>
+          Open Tracker
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden text-on-surface p-2 hover:bg-surface-variant/30 rounded-lg transition-colors">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-[60] hidden">
+  <div class="absolute inset-0 bg-surface/95 backdrop-blur-xl"></div>
+  <div class="relative flex flex-col items-center justify-center h-full gap-8">
+    <button id="mobile-menu-close" class="absolute top-6 right-6 text-on-surface p-2">
+      <span class="material-symbols-outlined text-3xl">close</span>
+    </button>
+    <a class="text-headline-sm font-headline font-bold text-primary" href="index.html">Home</a>
+    <a class="text-headline-sm font-headline text-on-surface-variant hover:text-on-surface transition-colors" href="tracker.html">Tracker</a>
+    <a href="tracker.html" class="mt-8 primary-btn bg-primary text-on-primary px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 glow-primary">
+      <span class="material-symbols-outlined">analytics</span>
+      Open Tracker
+    </a>
+  </div>
+</div>
+
+<main>
+<!-- Hero Section with Shader Background -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <canvas id="shader-canvas" class="w-full h-full"></canvas>
+  </div>
+  <div class="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-surface/60 pointer-events-none"></div>
+  
+  <div class="relative z-10 max-w-container-max mx-auto px-gutter md:px-margin-desktop text-center pt-24">
+    <div class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-label-caps font-label-caps animate-pulse-glow">
+      <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+      Precision Growth System
+    </div>
+    
+    <h1 class="font-headline text-headline-xl-mobile md:text-headline-xl text-gradient-primary mb-6 max-w-5xl mx-auto leading-tight">
+      Your life is a reflection of your habits, not your goals.
+    </h1>
+    
+    <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12 leading-relaxed">
+      Stop relying on a motivation battery that keeps dying. Welcome to a science-backed, spiritually grounded academy designed to help you leave your comfort zone, master self-control, and build permanent systems for growth.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-24">
+      <a href="tracker.html" class="primary-btn w-full sm:w-auto bg-primary text-on-primary px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 glow-primary">
+        <span class="material-symbols-outlined">play_arrow</span>
+        Start Learning (Track 1: Habits)
+      </a>
+      <button onclick="document.getElementById('tracks').scrollIntoView({behavior:'smooth'})" class="secondary-btn w-full sm:w-auto border border-secondary text-secondary px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined">explore</span>
+        Explore the Archive
+      </button>
+    </div>
+
+    <!-- Comparison Grid -->
+    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div class="glass-panel p-8 rounded-3xl flex flex-col items-center group hover:border-error/30 transition-all duration-500">
+        <h3 class="font-headline text-headline-sm mb-6 text-error flex items-center gap-3">
+          <span class="material-symbols-outlined text-error">bolt</span>
+          The Motivation Trap
+        </h3>
+        <div class="w-24 h-48 border-4 border-outline-variant rounded-xl relative p-1 mb-6 bg-surface-container-low">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-4 bg-outline-variant rounded-t-md"></div>
+          <div class="w-full bg-error rounded-lg animate-flicker transition-all duration-300" style="height: 15%"></div>
+        </div>
+        <p class="text-on-surface-variant font-body text-body-md">Flickering. Unreliable. High Friction.</p>
+      </div>
+      <div class="glass-panel p-8 rounded-3xl flex flex-col items-center group border-primary/30 hover:border-primary/60 transition-all duration-500">
+        <h3 class="font-headline text-headline-sm mb-6 text-primary flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary">psychology</span>
+          The Right Seed System
+        </h3>
+        <div class="relative w-48 h-48 flex items-end justify-center">
+          <div class="absolute bottom-0 w-1 bg-primary/20 h-full rounded-full"></div>
+          <div class="seed-grow w-3 bg-primary glow-primary rounded-t-full h-0 group-hover:h-3/4 transition-all duration-1000"></div>
+          <div class="absolute bottom-1/2 -left-4 w-8 h-8 bg-primary rounded-full opacity-0 group-hover:opacity-20 group-hover:scale-150 transition-all duration-1000"></div>
+          <div class="absolute bottom-3/4 -right-2 w-6 h-6 bg-primary rounded-full opacity-0 group-hover:opacity-20 group-hover:scale-125 transition-all duration-700"></div>
+        </div>
+        <p class="text-on-surface-variant mt-6 font-body text-body-md">Compounding. Permanent. Fluid Flow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Today's Seed Section -->
+<section class="relative z-20 -mt-16 px-gutter md:px-margin-desktop">
+  <div class="max-w-4xl mx-auto">
+    <div class="shimmer-border rounded-3xl">
+      <div class="bg-sage-green/5 border border-sage-green/20 backdrop-blur-md p-8 md:p-10 rounded-3xl glow-sage scroll-reveal">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-full bg-sage-green/20 flex items-center justify-center">
+            <span class="material-symbols-outlined text-sage-green" style="font-variation-settings:'FILL'1">potted_plant</span>
+          </div>
+          <div>
+            <div class="font-headline text-headline-sm font-bold text-on-surface">Today's Seed</div>
+            <div class="font-body text-body-sm text-on-surface-variant">Synced from Telegram @TheRightSeed</div>
+          </div>
+          <div class="ml-auto">
+            <span class="text-sage-green text-label-caps font-label-caps px-3 py-1.5 bg-sage-green/10 rounded-full border border-sage-green/30 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-sage-green animate-pulse"></span>
+              LIVE
+            </span>
+          </div>
+        </div>
+        <div class="prose prose-invert max-w-none text-on-surface-variant">
+          <p class="font-body text-body-md mb-4 leading-relaxed">"The past cannot be changed. But today's effort can still change tomorrow's outcome. Click to read today's lesson directly on Telegram."</p>
+          <div class="border-l-4 border-sage-green pl-5 italic mb-4 text-on-surface/80 font-body text-body-md">
+            "He who has a why to live for can bear almost any how." — Viktor Frankl
+          </div>
+          <p class="font-body text-body-sm">📌 <strong>Action Item:</strong> Identify the one environment trigger that broke your streak yesterday. Remove it before 9 PM today.</p>
+        </div>
+        <a class="mt-6 flex items-center justify-center gap-3 w-full py-4 bg-sage-green hover:bg-sage-green/80 text-white rounded-xl font-bold transition-all duration-300 hover:scale-[1.02] active:scale-100" href="https://t.me/TheRightSeed" target="_blank" rel="noopener">
+          <span class="material-symbols-outlined text-sm">send</span>
+          Read Full Lesson on Telegram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bamboo Principle -->
+<section class="py-20 md:py-32 bg-surface-container-low overflow-hidden">
+  <div class="max-w-container-max mx-auto px-gutter md:px-margin-desktop grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+    <div class="scroll-reveal">
+      <span class="text-primary font-label-caps text-label-caps uppercase tracking-[0.2em] mb-4 block font-bold">The Bamboo Principle</span>
+      <h2 class="font-headline text-headline-lg mb-8 leading-tight">The Root Season</h2>
+      <div class="space-y-6 text-on-surface-variant font-body text-body-lg leading-relaxed">
+        <p>The Chinese bamboo tree takes five years to break through the ground. For those five years, it must be watered and weeded every single day.</p>
+        <blockquote class="border-l-4 border-primary pl-6 py-3 italic bg-primary/5 rounded-r-xl text-on-surface/80" style="background: linear-gradient(90deg, rgba(63,229,108,0.05) 0%, transparent 100%);">
+          If you stop for just one day, the tree dies in the ground.
+        </blockquote>
+        <p>But then, in the fifth year, it grows 80 feet in just six weeks. Did it grow in six weeks or five years? It grew in five years. If it hadn't grown deep roots, it could never sustain that height.</p>
+      </div>
+    </div>
+    <div class="relative py-8 scroll-reveal">
+      <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-secondary/50 to-outline-variant"></div>
+      <div class="space-y-12 pl-20 relative">
+        <div class="relative group">
+          <div class="absolute -left-[53px] top-1 w-4 h-4 rounded-full bg-outline-variant group-hover:bg-primary transition-all duration-500 border-[3px] border-surface group-hover:shadow-[0_0_15px_rgba(63,229,108,0.4)]"></div>
+          <h4 class="font-headline text-headline-sm text-primary mb-1">Action</h4>
+          <p class="text-on-surface-variant font-body text-body-md">The single conscious choice to start.</p>
+        </div>
+        <div class="relative group">
+          <div class="absolute -left-[53px] top-1 w-4 h-4 rounded-full bg-outline-variant group-hover:bg-primary transition-all duration-500 border-[3px] border-surface group-hover:shadow-[0_0_15px_rgba(63,229,108,0.4)]"></div>
+          <h4 class="font-headline text-headline-sm text-primary mb-1">Habit</h4>
+          <p class="text-on-surface-variant font-body text-body-md">Consistency creates neural pathways.</p>
+        </div>
+        <div class="relative group">
+          <div class="absolute -left-[53px] top-1 w-4 h-4 rounded-full bg-outline-variant group-hover:bg-primary transition-all duration-500 border-[3px] border-surface group-hover:shadow-[0_0_15px_rgba(63,229,108,0.4)]"></div>
+          <h4 class="font-headline text-headline-sm text-primary mb-1">Lifestyle</h4>
+          <p class="text-on-surface-variant font-body text-body-md">Effortless execution of deep systems.</p>
+        </div>
+        <div class="relative group">
+          <div class="absolute -left-[53px] top-1 w-4 h-4 rounded-full bg-outline-variant group-hover:bg-primary transition-all duration-500 border-[3px] border-surface group-hover:shadow-[0_0_15px_rgba(63,229,108,0.4)]"></div>
+          <h4 class="font-headline text-headline-sm text-primary mb-1">Future</h4>
+          <p class="text-on-surface-variant font-body text-body-md">The exponential result of rooted growth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="py-16 md:py-20">
+  <div class="max-w-container-max mx-auto px-gutter md:px-margin-desktop">
+    <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary-container via-primary-container/60 to-surface-container p-10 md:p-20 text-center scroll-reveal">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-0 w-full h-full opacity-[0.03]">
+          <div class="absolute inset-0 border-[20px] border-white rounded-[2rem]"></div>
+        </div>
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
+      </div>
+      <div class="relative z-10">
+        <span class="material-symbols-outlined text-5xl text-on-primary-container mb-4" style="font-variation-settings:'FILL'1">eco</span>
+        <h2 class="font-headline text-headline-lg text-on-primary-container mb-4">Enter Your Root Season</h2>
+        <p class="text-on-primary-container/70 font-body text-body-lg max-w-2xl mx-auto mb-10">
+          No login required. Track your daily consistency data locally and securely inside your browser canvas.
+        </p>
+        <a href="tracker.html" class="inline-flex items-center gap-3 bg-on-primary-container text-white px-8 py-5 rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl active:scale-100">
+          Open Personal Tracker
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Academy Tracks -->
+<section id="tracks" class="py-20 md:py-32 bg-surface">
+  <div class="max-w-container-max mx-auto px-gutter md:px-margin-desktop">
+    <div class="text-center mb-16">
+      <span class="text-primary font-label-caps text-label-caps uppercase tracking-[0.2em] font-bold">Learning Paths</span>
+      <h2 class="font-headline text-headline-lg mt-3 mb-4">Master Your Tracks</h2>
+      <p class="text-on-surface-variant font-body text-body-lg max-w-xl mx-auto">Dedicated learning paths designed for holistic transformation.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+      <!-- Track 1 -->
+      <div class="track-card group relative aspect-[3/4] overflow-hidden rounded-3xl cursor-pointer bg-surface-container grayscale hover:grayscale-0 transition-all duration-700 hover:shadow-[0_0_40px_rgba(63,229,108,0.15)]">
+        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD71yu0LZTAOmPlEWng_drb3Kca_p_DTRWk6Rfj66RPPKinwZXX1IvobxKIrB4aZwpyCq3Eji2gc8NP00-BRFLMvc4xNYxGWqGFsPyHKi8_uDsax79Cg82DuXB6jxtueTBezrCkbxT8ziWW_Xg8am4pe--Ui7Co1Wcq992l0UUV3QbRfIj0QNHSWntqOfoYHW5nTcIskev9rXQuRia6SngU45sdh6J8W_Wl_UW_VtiTx-u6TfF-A06v')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/50 to-transparent opacity-90"></div>
+        <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
+          <span class="bg-primary/20 text-primary border border-primary/30 px-3 py-1 rounded-full text-label-caps font-label-caps mb-4 inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            ACTIVE
+          </span>
+          <h3 class="font-headline text-headline-md text-on-surface mb-2">The Science of Habits</h3>
+          <p class="text-on-surface-variant font-body text-body-md opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">Neuroscience of dopamine loops and environment design.</p>
+        </div>
+      </div>
+      <!-- Track 2 -->
+      <div class="track-card group relative aspect-[3/4] overflow-hidden rounded-3xl cursor-pointer bg-surface-container grayscale hover:grayscale-0 transition-all duration-700">
+        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCimMG8vHqrE2v4FZh23QDW090PK9bNiX0JTRZdb0fDqHj4OEwnh4XYcm2_tAHV8A8vZrccPLWgTxDq0xjPtfN9MOrql7UJE3TRiuKjB_QaLnTvGJZPR__2--Zyi9rvV7P15Dt9PsfXGsDzUxNhGnzshK4ileVS5iRxX7NKF-9_SZuogs77y_LRug4Z4VOH7nZyeDxXB5nwbtQE-BRwJdWRumPb-WBspK8jSEUUeCtjeLIX5bdrp4KX')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/50 to-transparent opacity-90"></div>
+        <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
+          <span class="bg-outline-variant/50 text-on-surface-variant border border-outline-variant px-3 py-1 rounded-full text-label-caps font-label-caps mb-4 inline-flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-xs">lock</span>
+            UPCOMING
+          </span>
+          <h3 class="font-headline text-headline-md text-on-surface mb-2">Emotional Intelligence</h3>
+          <p class="text-on-surface-variant font-body text-body-md opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">Mastering the internal state through cognitive framing.</p>
+        </div>
+      </div>
+      <!-- Track 3 -->
+      <div class="track-card group relative aspect-[3/4] overflow-hidden rounded-3xl cursor-pointer bg-surface-container grayscale hover:grayscale-0 transition-all duration-700">
+        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdwNiD73jQLnkCc8oN80T7vDxdbZgUtHuN3JUAj4uO4RQ1AsigQHQcx8Bz6YTVhRDrlwn8gmrHXd5VlAuj6gA7SWgFsy0MulMUhKZgRseF3la2sUECTEBQXPPyXEKjL_wXOellibe1DKAQOF7Nlot78msoSo3wO3b7XR7CXYk9nkSGMvAmx41ALe6_wTI0VIiXDJAB452nhJFHCT1OgnLdgBgrowBz6xNkK1XVLR--2G9YKfrwHkF-')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/50 to-transparent opacity-90"></div>
+        <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
+          <span class="bg-outline-variant/50 text-on-surface-variant border border-outline-variant px-3 py-1 rounded-full text-label-caps font-label-caps mb-4 inline-flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-xs">lock</span>
+            UPCOMING
+          </span>
+          <h3 class="font-headline text-headline-md text-on-surface mb-2">Psychology of Social Media</h3>
+          <p class="text-on-surface-variant font-body text-body-md opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">Reclaiming attention from algorithmic engineering.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tri-Pillar Framework -->
+<section class="py-20 md:py-32 bg-surface-container-lowest">
+  <div class="max-w-container-max mx-auto px-gutter md:px-margin-desktop">
+    <div class="text-center mb-16">
+      <span class="text-primary font-label-caps text-label-caps uppercase tracking-[0.2em] font-bold">Our Foundation</span>
+      <h2 class="font-headline text-headline-lg mt-3">The Tri-Pillar Framework</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+      <div class="p-8 flex flex-col items-center text-center scroll-reveal">
+        <div class="w-20 h-20 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 glow-primary hover:scale-110 transition-transform duration-500">
+          <span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings:'FILL'1">neurology</span>
+        </div>
+        <h3 class="font-headline text-headline-sm mb-4">Scientific Proof</h3>
+        <p class="text-on-surface-variant font-body text-body-md leading-relaxed">Grounding every strategy in hard neuroscience and behavioral psychology.</p>
+      </div>
+      <div class="p-8 flex flex-col items-center text-center scroll-reveal" style="transition-delay: 150ms;">
+        <div class="w-20 h-20 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-6 glow-secondary hover:scale-110 transition-transform duration-500">
+          <span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings:'FILL'1">auto_stories</span>
+        </div>
+        <h3 class="font-headline text-headline-sm mb-4">Timeless Wisdom</h3>
+        <p class="text-on-surface-variant font-body text-body-md leading-relaxed">Distilling ancient Stoicism and spirituality for the modern performer.</p>
+      </div>
+      <div class="p-8 flex flex-col items-center text-center scroll-reveal" style="transition-delay: 300ms;">
+        <div class="w-20 h-20 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 glow-primary hover:scale-110 transition-transform duration-500">
+          <span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings:'FILL'1">architecture</span>
+        </div>
+        <h3 class="font-headline text-headline-sm mb-4">Practical Application</h3>
+        <p class="text-on-surface-variant font-body text-body-md leading-relaxed">Turn high-level theories into actionable morning-to-night systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Weekly Rhythm -->
+<section class="py-20 md:py-32">
+  <div class="max-w-container-max mx-auto px-gutter md:px-margin-desktop">
+    <div class="text-center mb-16">
+      <span class="text-primary font-label-caps text-label-caps uppercase tracking-[0.2em] font-bold">Schedule</span>
+      <h2 class="font-headline text-headline-lg mt-3">Your Weekly Rhythm</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass-panel p-6 rounded-2xl border-l-4 border-primary hover:scale-105 transition-all duration-300 cursor-pointer group">
+        <div class="text-primary font-label-caps font-bold mb-2 tracking-wider">MONDAY</div>
+        <div class="font-headline text-headline-sm text-on-surface group-hover:text-primary transition-colors">Core Lesson</div>
+      </div>
+      <div class="glass-panel p-6 rounded-2xl border-l-4 border-secondary hover:scale-105 transition-all duration-300 cursor-pointer group">
+        <div class="text-secondary font-label-caps font-bold mb-2 tracking-wider">WEDNESDAY</div>
+        <div class="font-headline text-headline-sm text-on-surface group-hover:text-secondary transition-colors">Deep Dive</div>
+      </div>
+      <div class="glass-panel p-6 rounded-2xl border-l-4 border-primary hover:scale-105 transition-all duration-300 cursor-pointer group">
+        <div class="text-primary font-label-caps font-bold mb-2 tracking-wider">FRIDAY</div>
+        <div class="font-headline text-headline-sm text-on-surface group-hover:text-primary transition-colors">Advanced Insights</div>
+      </div>
+      <div class="glass-panel p-6 rounded-2xl border-l-4 border-tertiary hover:scale-105 transition-all duration-300 cursor-pointer group">
+        <div class="text-tertiary font-label-caps font-bold mb-2 tracking-wider">SUNDAY</div>
+        <div class="font-headline text-headline-sm text-on-surface group-hover:text-tertiary transition-colors">Reflection Day</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reflection Widget -->
+<section class="py-20 md:py-32 bg-surface-container">
+  <div class="max-w-3xl mx-auto px-gutter md:px-margin-desktop text-center">
+    <div class="glass-panel p-8 md:p-12 rounded-3xl border-primary/20">
+      <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+        <span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings:'FILL'0">psychology_alt</span>
+      </div>
+      <h2 class="font-headline text-headline-md mb-4">The First Seed</h2>
+      <p class="text-on-surface-variant font-body text-body-lg mb-8 max-w-xl mx-auto">Change begins with immediate awareness. Answer this honestly: What is one bad habit you keep fighting with willpower, when you should be changing your environment instead?</p>
+      <div class="relative">
+        <textarea class="w-full bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-2xl p-6 text-on-surface min-h-[140px] transition-all duration-300 font-body text-body-md placeholder:text-on-surface-variant/50 resize-none" id="reflection-input" placeholder="Type your reflection here..."></textarea>
+        <div class="flex items-center justify-between mt-6">
+          <span class="font-body text-body-sm text-on-surface-variant" id="char-count">0 characters</span>
+          <button class="primary-btn bg-primary text-on-primary px-8 py-3.5 rounded-xl font-bold flex items-center gap-2" id="commit-btn">
+            <span class="material-symbols-outlined text-sm">psychology</span>
+            Commit to Growth
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Success Modal -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-gutter hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="absolute inset-0 bg-surface/80 backdrop-blur-sm" id="modal-overlay"></div>
+  <div class="relative glass-panel p-8 md:p-12 rounded-3xl max-w-lg mx-4 text-center border-primary/30 shadow-[0_0_60px_rgba(63,229,108,0.15)] animate-float">
+    <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+      <span class="material-symbols-outlined text-5xl text-primary" style="font-variation-settings:'FILL'1">check_circle</span>
+    </div>
+    <h3 class="font-headline text-headline-md mb-4 text-on-surface" id="modal-title">Systems Sustain Change</h3>
+    <p class="font-body text-body-lg text-on-surface-variant mb-8 leading-relaxed">Your environment shapes your behavior more than your intentions. You've taken the first step toward precision growth.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button class="primary-btn bg-primary text-on-primary px-8 py-3.5 rounded-xl font-bold" id="close-modal">
+        Continue Journey
+      </button>
+      <a href="tracker.html" class="secondary-btn border border-primary text-primary px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-sm">analytics</span>
+        Open Tracker
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+</main>
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant/50">
+  <div class="max-w-container-max mx-auto py-16 md:py-24 px-gutter md:px-margin-desktop flex flex-col items-center gap-10 text-center">
+    <div class="space-y-4">
+      <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
+        <span class="material-symbols-outlined text-3xl text-primary" style="font-variation-settings:'FILL'1">eco</span>
+      </div>
+      <h2 class="font-headline text-headline-lg text-on-surface font-extrabold">The Inner Circle</h2>
+      <p class="text-on-surface-variant font-body text-body-lg max-w-xl mx-auto">Get daily prompts, research breakdowns, and early access to track modules.</p>
+    </div>
+    <a href="https://t.me/TheRightSeed" target="_blank" rel="noopener" class="primary-btn bg-primary text-on-primary font-bold py-5 px-12 rounded-full text-lg flex items-center gap-3 hover:shadow-[0_0_50px_rgba(63,229,108,0.3)]">
+      <span class="material-symbols-outlined">send</span>
+      Join the Telegram Community
+    </a>
+    <div class="w-full h-px bg-gradient-to-r from-transparent via-outline-variant to-transparent my-8"></div>
+    <div class="flex flex-col md:flex-row justify-between w-full items-center gap-8">
+      <a href="index.html" class="font-headline text-headline-sm font-extrabold text-on-surface hover:text-primary transition-colors">The Right Seed</a>
+      <div class="flex gap-6 md:gap-8">
+        <a href="https://t.me/TheRightSeed" target="_blank" rel="noopener" class="text-on-surface-variant hover:text-primary transition-colors font-body text-body-sm">Community</a>
+        <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body text-body-sm">Privacy Policy</a>
+        <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body text-body-sm">Terms of Service</a>
+        <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body text-body-sm">Support</a>
+      </div>
+    </div>
+    <p class="font-body text-body-sm text-secondary/60 hover:text-secondary/80 transition-colors">
+      &copy; 2026 The Right Seed Academy. Precision Growth for High Performers.
+    </p>
+  </div>
+</footer>
+
+<!-- WebGL Shader Script -->
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas');
+  if (!canvas) return;
+  
+  function syncSize() {
+    const w = canvas.clientWidth || window.innerWidth;
+    const h = canvas.clientHeight || window.innerHeight;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 center = uv - 0.5;
+    center.x *= u_resolution.x / u_resolution.y;
+    float wave1 = sin(uv.x * 10.0 + u_time * 0.5) * 0.1;
+    float wave2 = cos(uv.y * 8.0 - u_time * 0.3) * 0.05;
+    float dist = length(center + vec2(wave1, wave2));
+    vec3 charcoal = vec3(0.07, 0.07, 0.08);
+    vec3 emerald = vec3(0.0, 0.78, 0.32);
+    vec3 iceBlue = vec3(0.0, 0.9, 1.0);
+    float glow = 0.02 / (dist + 0.01);
+    glow *= (0.5 + 0.5 * sin(u_time * 2.0));
+    vec3 color = charcoal;
+    color = mix(color, emerald, smoothstep(0.5, 0.0, dist) * 0.1);
+    color = mix(color, iceBlue, glow * 0.4);
+    float grid = sin(uv.x * 100.0) * sin(uv.y * 100.0);
+    color += grid * 0.01;
+    gl_FragColor = vec4(color, 0.6);
+}`;
+
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+
+<script>
+// Scroll Reveal Observer
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right').forEach(el => observer.observe(el));
+
+// Reflection Modal
+const commitBtn = document.getElementById('commit-btn');
+const modal = document.getElementById('modal');
+const closeModal = document.getElementById('close-modal');
+const modalOverlay = document.getElementById('modal-overlay');
+const reflectionInput = document.getElementById('reflection-input');
+const charCount = document.getElementById('char-count');
+
+// Character counter
+if (reflectionInput) {
+  reflectionInput.addEventListener('input', () => {
+    charCount.textContent = `${reflectionInput.value.length} characters`;
+  });
+}
+
+if (commitBtn) {
+  commitBtn.addEventListener('click', () => {
+    if (reflectionInput.value.trim() !== '') {
+      // Store the reflection in localStorage
+      const reflections = JSON.parse(localStorage.getItem('TRS_REFLECTIONS') || '[]');
+      reflections.push({
+        text: reflectionInput.value.trim(),
+        date: new Date().toISOString()
+      });
+      localStorage.setItem('TRS_REFLECTIONS', JSON.stringify(reflections));
+      
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = '6px'; // prevent layout shift
+    } else {
+      reflectionInput.classList.add('border-error', 'ring-2', 'ring-error/30');
+      reflectionInput.placeholder = 'Please write your reflection first...';
+      setTimeout(() => {
+        reflectionInput.classList.remove('border-error', 'ring-2', 'ring-error/30');
+      }, 2000);
+    }
+  });
+}
+
+if (closeModal) {
+  closeModal.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    document.body.style.marginRight = '';
+    reflectionInput.value = '';
+    charCount.textContent = '0 characters';
+  });
+}
+
+if (modalOverlay) {
+  modalOverlay.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    document.body.style.marginRight = '';
+  });
+}
+
+// Navbar scroll effect
+const navBg = document.getElementById('nav-bg');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navBg.classList.remove('bg-surface/0', 'border-white/0');
+    navBg.classList.add('bg-surface/80', 'border-white/10');
+  } else {
+    navBg.classList.add('bg-surface/0', 'border-white/0');
+    navBg.classList.remove('bg-surface/80', 'border-white/10');
+  }
+});
+
+// Mobile menu
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+if (mobileMenuBtn && mobileMenu) {
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  mobileMenuClose.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  });
+  
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) {
+      mobileMenu.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  });
+}
+
+// Keyboard shortcut: Escape to close modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (!modal.classList.contains('hidden')) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      document.body.style.marginRight = '';
+    }
+  }
+});
+</script>
+</body>
+</html>

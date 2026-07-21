@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Academy Path Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config from Source of Truth -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#131315",
+                    "on-background": "#e5e1e4",
+                    "surface-variant": "#353437",
+                    "inverse-on-surface": "#303032",
+                    "on-primary-fixed-variant": "#00531e",
+                    "on-tertiary": "#003910",
+                    "secondary-fixed": "#9cf0ff",
+                    "on-tertiary-fixed": "#002107",
+                    "on-secondary-fixed-variant": "#004f58",
+                    "tertiary": "#9bd89b",
+                    "on-secondary": "#00363d",
+                    "on-primary-container": "#004c1b",
+                    "surface-container-high": "#2a2a2c",
+                    "on-tertiary-fixed-variant": "#185123",
+                    "on-primary": "#003912",
+                    "surface-container-low": "#1b1b1d",
+                    "on-surface-variant": "#bbcbb8",
+                    "surface-container": "#201f21",
+                    "error-container": "#93000a",
+                    "surface-bright": "#39393b",
+                    "tertiary-container": "#80bc82",
+                    "tertiary-fixed-dim": "#98d599",
+                    "surface": "#131315",
+                    "inverse-surface": "#e5e1e4",
+                    "secondary-container": "#00e3fd",
+                    "outline-variant": "#3c4a3c",
+                    "on-primary-fixed": "#002108",
+                    "on-error": "#690005",
+                    "secondary": "#bdf4ff",
+                    "on-surface": "#e5e1e4",
+                    "primary": "#3fe56c",
+                    "surface-tint": "#3ce36a",
+                    "on-error-container": "#ffdad6",
+                    "error": "#ffb4ab",
+                    "on-secondary-container": "#00616d",
+                    "inverse-primary": "#006e2a",
+                    "primary-container": "#00c853",
+                    "on-tertiary-container": "#114c1e",
+                    "surface-container-lowest": "#0e0e10",
+                    "tertiary-fixed": "#b4f2b3",
+                    "background": "#131315",
+                    "primary-fixed": "#69ff87",
+                    "secondary-fixed-dim": "#00daf3",
+                    "on-secondary-fixed": "#001f24",
+                    "primary-fixed-dim": "#3ce36a",
+                    "surface-container-highest": "#353437",
+                    "outline": "#869583"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "headline-xl-mobile": ["Plus Jakarta Sans"],
+                    "body-sm": ["Inter"],
+                    "headline-xl": ["Plus Jakarta Sans"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131315;
+            color: #e5e1e4;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(30, 30, 34, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+        }
+
+        .habit-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .habit-card:hover {
+            transform: translateY(-4px);
+            background: rgba(63, 229, 108, 0.05);
+        }
+
+        .habit-card.active {
+            border-color: #3fe56c;
+            box-shadow: 0 0 20px rgba(63, 229, 108, 0.15);
+        }
+
+        .streak-node {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: #2a2a2c;
+            transition: all 0.5s ease;
+        }
+
+        .streak-node.completed {
+            background: #3fe56c;
+            box-shadow: 0 0 10px rgba(63, 229, 108, 0.4);
+            border-radius: 50%;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #353437;
+            border-radius: 10px;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex flex-col w-64 bg-surface-container-lowest border-r border-outline-variant p-6 sticky top-0 h-screen">
+<div class="mb-10">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">The Academy</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">PRECISION GROWTH</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-body-md text-body-md font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Console
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/30 rounded-lg font-body-md text-body-md transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">menu_book</span>
+                Library
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/30 rounded-lg font-body-md text-body-md transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">psychology</span>
+                Habits
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/30 rounded-lg font-body-md text-body-md transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">hub</span>
+                Community
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-contrast studio portrait of a focused professional in dark lighting, with sharp highlights defining their profile against a deep charcoal background. The aesthetic is modern, sleek, and serious, matching a high-performance dark theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYFnGv5Ip95woWOdAiIiQq5PkSVb7nZYJqWmCHmoT6WgrlXtV9zYEf66HjlYB1qEfTf47RwLwVMiG8o_XU1dm5DcmMal6FtcBG6UXKhnlqIrVFSeBb_460Q1aERju-QcFd4MKM6gy_nYaRC789wr6kA6HV9HzaegKMNGkPCqIYzGTbN5BinldcV3xkxILcxryKTikAVmctrM7qaWv-5LXVLC0FP0z-SvoOkrxGC2gTrGriwHJAy4R3"/>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-bold">High Performer</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Day 14 Profile</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 min-w-0 flex flex-col relative overflow-hidden">
+<!-- Animated Background Shader Element -->
+<div class="absolute inset-0 z-[-1] pointer-events-none opacity-40">
+
+</div>
+<!-- Header Shell -->
+<header class="flex justify-between items-center px-gutter py-6 max-w-container-max w-full mx-auto z-10">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">Building Identity, Not Just Goals.</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<p class="font-body-md text-body-md text-primary">Day 14 of Consistency.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Current Streak</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary" id="streak-counter">14 Days</span>
+</div>
+<button class="bg-surface-variant/50 p-2 rounded-full hover:bg-surface-variant transition-colors border border-outline-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Dashboard Layout (Bento Grid) -->
+<section class="flex-1 px-gutter py-4 max-w-container-max w-full mx-auto grid grid-cols-12 gap-6 pb-12">
+<!-- The Core 5 Checklist (Left / Primary) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<div class="glass-panel p-8">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">The Core 5 Alignment</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Foundational behaviors for precision focus.</p>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-primary uppercase" id="completion-text">0/5 Completed</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4" id="habit-grid">
+<!-- Habit Card 1 -->
+<button class="habit-card flex flex-col items-center justify-center p-6 rounded-xl border border-outline-variant bg-surface-container-low text-center gap-4 group" onclick="toggleHabit(0)">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">wb_sunny</span>
+</div>
+<span class="font-body-sm text-body-sm font-bold">Wake Early</span>
+</button>
+<!-- Habit Card 2 -->
+<button class="habit-card flex flex-col items-center justify-center p-6 rounded-xl border border-outline-variant bg-surface-container-low text-center gap-4 group" onclick="toggleHabit(1)">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">menu_book</span>
+</div>
+<span class="font-body-sm text-body-sm font-bold">Read Daily</span>
+</button>
+<!-- Habit Card 3 -->
+<button class="habit-card flex flex-col items-center justify-center p-6 rounded-xl border border-outline-variant bg-surface-container-low text-center gap-4 group" onclick="toggleHabit(2)">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">fitness_center</span>
+</div>
+<span class="font-body-sm text-body-sm font-bold">Exercise</span>
+</button>
+<!-- Habit Card 4 -->
+<button class="habit-card flex flex-col items-center justify-center p-6 rounded-xl border border-outline-variant bg-surface-container-low text-center gap-4 group" onclick="toggleHabit(3)">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">self_improvement</span>
+</div>
+<span class="font-body-sm text-body-sm font-bold">Prayer</span>
+</button>
+<!-- Habit Card 5 -->
+<button class="habit-card flex flex-col items-center justify-center p-6 rounded-xl border border-outline-variant bg-surface-container-low text-center gap-4 group" onclick="toggleHabit(4)">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">edit_note</span>
+</div>
+<span class="font-body-sm text-body-sm font-bold">Journaling</span>
+</button>
+</div>
+<!-- Progress Bar -->
+<div class="mt-10">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Daily Momentum</span>
+<span class="font-body-sm text-body-sm font-bold text-primary" id="momentum-percent">0%</span>
+</div>
+<div class="h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-tertiary-container to-primary transition-all duration-700 ease-out" id="momentum-bar" style="width: 0%"></div>
+</div>
+</div>
+</div>
+<!-- Focus Block / Secondary Info -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-panel p-6 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<h4 class="font-headline-sm text-[20px] font-bold">Current Neuro-Phase</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">You are currently in the <strong>Automaticity Window</strong>. Your brain requires 34% less willpower to execute habits compared to Day 1.</p>
+<div class="mt-2 py-2 px-4 bg-surface-variant/30 rounded-lg border border-white/5 font-body-sm text-body-sm italic">
+                            "Environment design is the secret to effortlessness."
+                        </div>
+</div>
+<div class="glass-panel p-6 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">bar_chart</span>
+<h4 class="font-headline-sm text-[20px] font-bold">Efficiency Metric</h4>
+</div>
+<div class="flex justify-around items-end h-24 gap-2">
+<div class="w-full bg-primary/20 rounded-t-sm" style="height: 40%"></div>
+<div class="w-full bg-primary/40 rounded-t-sm" style="height: 65%"></div>
+<div class="w-full bg-primary/60 rounded-t-sm" style="height: 85%"></div>
+<div class="w-full bg-primary/80 rounded-t-sm" style="height: 70%"></div>
+<div class="w-full bg-primary rounded-t-sm" style="height: 100%"></div>
+</div>
+<p class="font-body-sm text-body-sm text-center text-on-surface-variant mt-2">Visualizing focus depth over last 5 days.</p>
+</div>
+</div>
+</div>
+<!-- Calendar Streak Matrix (Right / Secondary) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="glass-panel p-6 h-full flex flex-col">
+<div class="mb-6">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Path Visualization</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">30-day streak matrix</p>
+</div>
+<!-- Calendar Matrix Grid -->
+<div class="grid grid-cols-6 gap-3 mb-8" id="calendar-matrix">
+<!-- JS will populate these nodes -->
+</div>
+<div class="mt-auto space-y-4">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-high border border-outline-variant">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-bold">Identity Shift</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The "Athlete" seed is sprouting.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-high border border-outline-variant opacity-50">
+<div class="w-12 h-12 rounded-full bg-on-surface-variant/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">lock</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-bold">Next Landmark</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Day 21: Neural Locking</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full border-t border-outline-variant py-8 px-gutter flex flex-col md:flex-row items-center justify-between bg-surface-container-lowest z-10">
+<div class="mb-4 md:mb-0">
+<h4 class="font-headline-md text-headline-md font-extrabold text-on-surface leading-none">Seed.</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">© 2024 The Right Seed Academy.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Community</a>
+</div>
+</footer>
+</main>
+<!-- FAB (Suppressed on dashboard as per rule but available for context) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50 md:hidden">
+<span class="material-symbols-outlined">add</span>
+</button>
+<script>
+        // Persistence Logic
+        const STORAGE_KEY = 'ACADEMY_HABIT_DATA';
+        const habitCount = 5;
+        const totalDays = 30;
+        
+        let habitState = {
+            today: [false, false, false, false, false],
+            history: Array(totalDays).fill(false),
+            streak: 14 // Starting at 14 as per prompt request
+        };
+
+        // Initialize from LocalStorage
+        function initData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                habitState = JSON.parse(saved);
+            }
+            // Mocking history for visualization
+            if (habitState.history.every(h => !h)) {
+                for(let i=0; i<13; i++) habitState.history[i] = true;
+            }
+            renderAll();
+        }
+
+        function toggleHabit(index) {
+            habitState.today[index] = !habitState.today[index];
+            
+            // Check if all are completed today
+            const allDone = habitState.today.every(h => h);
+            habitState.history[13] = allDone; // Current day is 14 (index 13)
+
+            saveAndRender();
+        }
+
+        function saveAndRender() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(habitState));
+            renderAll();
+        }
+
+        function renderAll() {
+            // Render Checklist
+            const cards = document.querySelectorAll('.habit-card');
+            let completedCount = 0;
+            cards.forEach((card, i) => {
+                if (habitState.today[i]) {
+                    card.classList.add('active');
+                    card.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1";
+                    completedCount++;
+                } else {
+                    card.classList.remove('active');
+                    card.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 0";
+                }
+            });
+
+            // Update Progress
+            const percent = (completedCount / habitCount) * 100;
+            document.getElementById('completion-text').innerText = `${completedCount}/5 Completed`;
+            document.getElementById('momentum-percent').innerText = `${Math.round(percent)}%`;
+            document.getElementById('momentum-bar').style.width = `${percent}%`;
+
+            // Update Streak Counter
+            // If everything is done today, streak is 14, otherwise if some done but not all, it's still 14 but looking "unfilled"
+            document.getElementById('streak-counter').innerText = `${habitState.streak} Days`;
+
+            // Render Matrix
+            const matrix = document.getElementById('calendar-matrix');
+            matrix.innerHTML = '';
+            for (let i = 0; i < totalDays; i++) {
+                const node = document.createElement('div');
+                node.className = 'streak-node';
+                if (habitState.history[i]) {
+                    node.classList.add('completed');
+                }
+                // Highlight "Today" node
+                if (i === 13) {
+                    node.style.border = '1px solid #3fe56c';
+                }
+                matrix.appendChild(node);
+            }
+        }
+
+        // Run on load
+        window.onload = initData;
+
+        // micro-interaction: Subtle mouse movement on cards
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.glass-panel');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>
